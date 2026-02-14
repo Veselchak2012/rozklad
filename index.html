@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Розклад ліцею</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Середовище створення розкладу уроків</h1>
+    <p>Працює з загальним розкладом та окремими переглядами по класах і вчителях.</p>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <h2>Імпорт списків</h2>
+      <form id="import-form" class="subject-form">
+        <select id="import-type" required>
+          <option value="classes">Класи</option>
+          <option value="students">Учні</option>
+          <option value="teachers">Вчителі</option>
+          <option value="rooms">Кабінети</option>
+        </select>
+        <input id="import-file" type="file" accept=".txt,.csv,.xlsx" required />
+        <button type="submit">Імпорт</button>
+      </form>
+      <small class="hint">Підтримка: txt/csv/xlsx (Google Sheets експортуйте в csv/xlsx).</small>
+    </section>
+
+    <section class="panel">
+      <h2>Класи</h2>
+      <form id="class-form" class="inline-form">
+        <input id="class-input" type="text" placeholder="Напр. 8-А" required />
+        <button type="submit">Додати</button>
+      </form>
+      <ul id="class-list" class="item-list"></ul>
+    </section>
+
+    <section class="panel">
+      <h2>Кабінети</h2>
+      <form id="room-form" class="inline-form">
+        <input id="room-input" type="text" placeholder="Напр. 203" required />
+        <button type="submit">Додати</button>
+      </form>
+      <ul id="room-list" class="item-list"></ul>
+    </section>
+
+    <section class="panel">
+      <h2>Вчителі</h2>
+      <form id="teacher-form" class="inline-form">
+        <input id="teacher-input" type="text" placeholder="ПІБ вчителя" required />
+        <button type="submit">Додати</button>
+      </form>
+      <ul id="teacher-list" class="item-list"></ul>
+    </section>
+
+    <section class="panel wide full-row">
+      <h2>Предмети</h2>
+      <form id="subject-form" class="subject-form">
+        <input id="subject-name" type="text" placeholder="Назва предмета" required />
+        <select id="subject-teacher" required></select>
+        <select id="subject-class" required></select>
+        <input id="subject-lessons" type="number" min="1" max="10" value="2" required />
+        <button type="submit">Додати предмет</button>
+      </form>
+      <ul id="subject-list" class="item-list"></ul>
+    </section>
+
+    <section class="panel full">
+      <div class="toolbar">
+        <h2>Розклад</h2>
+        <div class="toolbar-actions">
+          <select id="view-mode">
+            <option value="global">Загальний</option>
+            <option value="class">За класом</option>
+            <option value="teacher">За вчителем (сітка уроків)</option>
+            <option value="teachers-week-all">Всі вчителі (тиждень)</option>
+            <option value="teacher-week">Окремий вчитель (тиждень)</option>
+            <option value="class-week">Окремий клас (тиждень)</option>
+          </select>
+          <select id="view-target"></select>
+          <button id="auto-btn" type="button">Авто-розклад</button>
+          <button id="clear-btn" class="ghost" type="button">Очистити позиції</button>
+          <button id="export-xlsx" class="success" type="button">Експорт в Excel</button>
+          <button id="export-csv" class="success" type="button">Експорт CSV</button>
+        </div>
+      </div>
+      <p class="hint">Будь-яке ручне редагування змінює єдину модель розкладу й одразу видно у всіх режимах.</p>
+
+      <div class="schedule-wrap">
+        <table id="schedule-table"></table>
+      </div>
+
+      <h3 id="pool-title">Невстановлені уроки</h3>
+      <div id="tile-pool" class="tile-pool dropzone" data-pool="1"></div>
+    </section>
+  </main>
+</body>
+</html>
