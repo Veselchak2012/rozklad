@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Розклад ліцею</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Середовище створення розкладу уроків</h1>
+    <p>Додайте кабінети, вчителів і предмети, а потім згенеруйте розклад автоматично.</p>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <h2>Кабінети</h2>
+      <form id="room-form" class="inline-form">
+        <input id="room-input" type="text" placeholder="Напр. 203" required />
+        <button type="submit">Додати</button>
+      </form>
+      <ul id="room-list" class="item-list"></ul>
+    </section>
+
+    <section class="panel">
+      <h2>Вчителі</h2>
+      <form id="teacher-form" class="inline-form">
+        <input id="teacher-input" type="text" placeholder="ПІБ вчителя" required />
+        <button type="submit">Додати</button>
+      </form>
+      <ul id="teacher-list" class="item-list"></ul>
+    </section>
+
+    <section class="panel wide">
+      <h2>Навчальні предмети</h2>
+      <form id="subject-form" class="subject-form">
+        <input id="subject-name" type="text" placeholder="Назва предмета" required />
+        <select id="subject-teacher" required></select>
+        <input id="subject-lessons" type="number" min="1" max="10" value="2" required />
+        <button type="submit">Додати предмет</button>
+      </form>
+      <ul id="subject-list" class="item-list"></ul>
+    </section>
+
+    <section class="panel full">
+      <div class="toolbar">
+        <h2>Розклад</h2>
+        <div class="toolbar-actions">
+          <button id="auto-btn">Авто-розклад</button>
+          <button id="clear-btn" class="ghost">Очистити</button>
+          <button id="export-xlsx" class="success">Експорт в Excel (.xlsx)</button>
+          <button id="export-csv" class="success">Експорт CSV (Google Sheets)</button>
+        </div>
+      </div>
+      <p class="hint">Перетягуйте плитки між клітинками або в пул невикористаних уроків.</p>
+
+      <div class="schedule-wrap">
+        <table id="schedule-table"></table>
+      </div>
+
+      <h3>Невикористані плитки</h3>
+      <div id="tile-pool" class="tile-pool dropzone"></div>
+    </section>
+  </main>
+</body>
+</html>
