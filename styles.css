@@ -149,3 +149,5 @@ button.compact { padding: 0.25rem 0.5rem; }
 .week-item strong {
   margin-right: 0.35rem;
 }
+
+.hidden { display: none; }

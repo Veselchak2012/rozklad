@@ -64,8 +64,15 @@
         <select id="subject-teacher" required></select>
         <select id="subject-class" required></select>
         <input id="subject-lessons" type="number" min="1" max="10" value="2" required />
+        <select id="group-mode">
+          <option value="none">Без поділу</option>
+          <option value="split-simultaneous">2 групи одночасно</option>
+          <option value="split-separate">2 групи в різний час</option>
+        </select>
+        <select id="subject-teacher-2" class="hidden"></select>
         <button type="submit">Додати предмет</button>
       </form>
+      <small class="hint">Для групового предмета можна обрати другого вчителя для 2-ї групи.</small>
       <ul id="subject-list" class="item-list"></ul>
     </section>
 
@@ -88,7 +95,7 @@
           <button id="export-csv" class="success" type="button">Експорт CSV</button>
         </div>
       </div>
-      <p class="hint">Будь-яке ручне редагування змінює єдину модель розкладу й одразу видно у всіх режимах.</p>
+      <p class="hint">Підтримується поділ класу на 2 групи: одночасно або в різний час.</p>
 
       <div class="schedule-wrap">
         <table id="schedule-table"></table>
